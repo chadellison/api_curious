@@ -13,6 +13,7 @@ gem 'rails_12factor', group: :production
 gem "unicorn"
 gem 'bcrypt', '~> 3.1.7'
 gem 'figaro'
+gem 'omniauth-github'
 
 group :development, :test do
   gem 'byebug'
