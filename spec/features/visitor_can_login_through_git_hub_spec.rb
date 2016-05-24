@@ -9,7 +9,6 @@ feature "visitor can login with github" do
 
   scenario "logging in" do
 
-
     visit root_path
     expect(page.status_code).to eq 200
     click_on "Sign in with Github"
