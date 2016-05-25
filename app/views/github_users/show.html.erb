@@ -1,0 +1,7 @@
+<h2><%= @followed_user[:login] %></h2>
+<ul>
+<% @github_user.each do |user| %>
+  <% user = user.join(", ") if user.is_a? Array %>
+  <li><%= user %></li>
+<% end %>
+</ul>

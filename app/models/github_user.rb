@@ -1,9 +1,13 @@
 class GithubUser < OpenStruct
-  attr_reader :user, :service
+  attr_accessor :name, :service
 
   def initialize(user)
     @user = user
     @service = GithubService.new(user)
+  end
+
+  def find(user_name)
+    service.find(user_name)
   end
 
   def recent_pushes
@@ -28,5 +32,9 @@ class GithubUser < OpenStruct
 
   def starred
     service.starred_hash
+  end
+
+  def followed_user_summary(followed_user)
+    service.followed_user_summary(followed_user)
   end
 end

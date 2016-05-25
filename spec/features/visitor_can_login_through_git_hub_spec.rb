@@ -15,6 +15,7 @@ feature "visitor can login with github" do
     expect(current_path).to eq dashboard_path
     expect(page).to have_content "Horace"
     expect(page).to have_link "Logout"
+    expect(page).to have_content ""
   end
 
   def stub_omniauth

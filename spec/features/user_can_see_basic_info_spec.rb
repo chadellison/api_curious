@@ -36,7 +36,7 @@ feature "user can see basic info" do
       credentials: {
         token: "pizza",
         secret: "secretpizza"
-      }
+      },
     })
   end
 end

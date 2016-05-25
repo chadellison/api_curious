@@ -1,15 +1,24 @@
 class GithubService
-  attr_reader :user
-  attr_reader :connection
+  attr_reader :user, :connection
 
   def initialize(user)
     @user = user
     @connection = Faraday.new(url: "https://api.github.com/users/")
     @connection.headers["Authorization"] = "token #{user.oauth_token}"
+    @query_user = user
+  end
+
+  def find(user_name)
+    following_hash.detect { |user| user[:login] == user_name}
   end
 
   def get_events
-    connection.get "#{user.login}/events"
+    connection.get "#{@query_user[:login]}/events"
+  end
+
+  def followed_user_summary(followed_user_hash)
+    @query_user = followed_user_hash
+    ["Commits: "] + recent_pushes + ["Pull Requests: "] + recent_pull_requests + ["Issues: "] + recent_issues
   end
 
   def recent_pushes
@@ -19,14 +28,6 @@ class GithubService
       push[:payload][:commits].map { |commit| commit[:message]}
     end
   end
-
-  # def recent_repos
-  #   parse(get_events).select do |event|
-  #     event[:type] == "CreateEvent"
-  #   end.map do |repo|
-  #     [repo[:repo][:name], [:payload][:ref]]
-  #   end
-  # end
 
   def recent_pull_requests
     parse(get_events).select do |event|
