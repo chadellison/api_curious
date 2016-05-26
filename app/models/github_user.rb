@@ -10,6 +10,12 @@ class GithubUser < OpenStruct
     service.organizations
   end
 
+  def repos
+    service.repos.map do |repo|
+      repo[:name]
+    end
+  end
+
   def find(user_name)
     service.find(user_name)
   end

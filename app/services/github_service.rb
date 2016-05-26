@@ -20,6 +20,14 @@ class GithubService
     parse(get_organizations)
   end
 
+  def repos
+    parse(get_repos)
+  end
+
+  def get_repos
+    connection.get "#{@query_user[:login]}/repos"
+  end
+
   def get_events
     connection.get "#{@query_user[:login]}/events"
   end
