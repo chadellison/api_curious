@@ -5,13 +5,12 @@ feature "user can view other github users" do
   before(:each) do
     Capybara.app = ApiCurious::Application
   end
-  
+
   VCR.use_cassette "omniauth_login" do
     scenario "logging in" do
       visit root_path
       click_on "Sign in with Github"
       click_on "Following"
-      expect(page).to have_content "Followed Users"
       expect(page).to have_link "treyx"
       expect(page).to have_link "damwhit"
       expect(page).to have_link "thompickett"

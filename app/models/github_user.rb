@@ -6,6 +6,10 @@ class GithubUser < OpenStruct
     @service = GithubService.new(@name)
   end
 
+  def avatar_url
+    service.user[:avatar_url]
+  end
+
   def organizations
     service.organizations
   end

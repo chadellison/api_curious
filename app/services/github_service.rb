@@ -6,6 +6,10 @@ class GithubService
     @connection.headers["Authorization"] = "token #{ENV["oauth_token"]}"
   end
 
+  def user
+    parse(get_user)
+  end
+
   def organizations
     parse(get_organizations)
   end
@@ -72,5 +76,9 @@ class GithubService
 
     def get_repos
       connection.get "repos"
+    end
+
+    def get_user
+      connection.get
     end
 end

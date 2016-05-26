@@ -1,6 +1,10 @@
 class GithubUsersController < ApplicationController
   def index
-    @followed_users = GithubUser.new(login: current_user[:login]).followers
+    if params[:type] == "following"
+      @users = GithubUser.new(login: current_user[:login]).following
+    else
+      @users = GithubUser.new(login: current_user[:login]).followers
+    end
   end
 
   def show

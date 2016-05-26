@@ -1,4 +1,4 @@
-<h2>Followed Users</h2>
-<% @followed_users.each do |user| %>
+<h2>Users</h2>
+<% @users.each do |user| %>
   <li><%= link_to "#{user[:login]}", "/users/#{user[:login]}" %></li>
 <% end %>

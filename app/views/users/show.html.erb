@@ -1,8 +1,8 @@
 <h2>Welcome, <%= current_user.name %></h2>
 <div class="avatar">
   <%= image_tag current_user.avatar_url %>
-  <h4>Followers: <%= @github_user.followers.count %></h4>
-  <h4> <%= link_to "Following: #{@github_user.following.count}", users_path %></h4>
+  <h4><%= link_to "Followers: #{@github_user.followers.count}", users_path(type: :followers) %></h4>
+  <h4><%= link_to "Following: #{@github_user.following.count}", users_path(type: :following) %></h4>
   <h4>Starred: <%= @github_user.starred.count %></h4>
   <h4>Organizations:</h4>
   <ul>
@@ -18,11 +18,10 @@
       <% push.each do |push_info| %>
       <li><%= push_info %><li>
         <% end %>
-        <% end %>
-      </ul>
-    </div>
+      <% end %>
+    </ul>
   </div>
-
+</div>
 <div class="repos">
   <h3>Repositories:</h3>
   <% @github_user.repos.each do |repo| %>
