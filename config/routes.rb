@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   delete "/logout", to: "sessions#destroy"
 
   get "/dashboard", to: "users#show", as: :dashboard
+  get "/users", to: "github_users#index"
+  get "/users/:name", to: "github_users#show"
 end

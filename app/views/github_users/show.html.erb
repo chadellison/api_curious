@@ -1,0 +1,10 @@
+<h2><%= @followed_user[:login] %></h2>
+<ul>
+<% @github_user_activity.each do |title, activity| %>
+  <h4><%= title %></h4>
+  <% activity.each do |data| %>
+    <% data = data.join(", ") if data.is_a? Array %>
+    <li><%= data %></li>
+  <% end %>
+<% end %>
+</ul>
