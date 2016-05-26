@@ -1,43 +1,48 @@
 <h2><%= @github_user.name %></h2>
 <div class="avatar"><%= image_tag @github_user.avatar_url %></div>
 <h4>Repositories</h4>
-<ul>
+<div class="">
   <% @github_user.repos.each do |repo| %>
   <ul>
     <li><%= repo %></li>
   </ul>
   <% end %>
-  <h4>Followers: <%= @github_user.followers.count %></h4>
-  <h4>Following: <%= "#{@github_user.following.count}" %></h4>
-  <h4>Starred: <%= @github_user.starred.count %></h4>
-  <h4>Organizations:</h4>
+</div>
+<h4>Followers: <%= @github_user.followers.count %></h4>
+<h4>Following: <%= "#{@github_user.following.count}" %></h4>
+<h4>Starred: <%= @github_user.starred.count %></h4>
+<h4>Organizations:</h4>
+<ul>
+<% @github_user.organizations.each do |organization| %>
+  <li><%= organization["login"] unless organization.nil? %></li>
+<% end %>
+</ul>
+<h3>Contribution Activity:</h3>
+<div class="commits">
+<h4><%= @github_user.recent_pushes.count %> Commits</h4>
+  <% @github_user.recent_pushes.each do |push| %>
   <ul>
-  <% @github_user.organizations.each do |organization| %>
-    <li><%= organization["login"] unless organization.nil? %></li>
-  <% end %>
-  </ul>
-  <h3>Contribution Activity:</h3>
-  <h4><%= @github_user.recent_pushes.count %> Commits</h4>
-    <% @github_user.recent_pushes.each do |push| %>
-    <ul>
-      <% push.each do |push_info| %>
-        <li><%= push_info %><li>
-      <% end %>
-    </ul>
+    <% push.each do |push_info| %>
+      <li><%= push_info %><li>
     <% end %>
-
+  </ul>
+  <% end %>
+</div>
+<div class="pull-requests">
   <h4><%= @github_user.recent_pull_requests.count %> Pull Requests</h4>
     <% @github_user.recent_pull_requests.each do |pull_request| %>
     <ul>
       <li><%= pull_request %></li>
     </ul>
     <% end %>
-
-  <h4><%= @github_user.issues.count %> Issues</h4>
-    <% @github_user.issues.each do |issue| %>
-    <ul>
-      <% issue.each do |issue_data| %>
-        <li><%= issue_data %></li>
-      <% end %>
-    </ul>
+</div>
+<div class="issues">
+<h4><%= @github_user.issues.count %> Issues</h4>
+  <% @github_user.issues.each do |issue| %>
+  <ul>
+    <% issue.each do |issue_data| %>
+      <li><%= issue_data %></li>
     <% end %>
+  </ul>
+  <% end %>
+</div>
