@@ -12,8 +12,12 @@ class GithubService
     following_hash.detect { |user| user[:login] == user_name}
   end
 
+  def get_organizations
+    connection.get "#{@query_user[:login]}/orgs"
+  end
+
   def organizations
-    @connection = Faraday.new(url: "https://api.github.com/user/orgs")
+    parse(get_organizations)
   end
 
   def get_events
