@@ -5,6 +5,6 @@ class GithubUsersController < ApplicationController
 
   def show
     @followed_user = GithubUser.new(current_user).find(params[:name])
-    @github_user = GithubUser.new(current_user).followed_user_summary(@followed_user)
+    @github_user_activity = GithubUser.new(current_user).followed_user_summary(@followed_user)
   end
 end

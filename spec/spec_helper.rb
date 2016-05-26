@@ -16,6 +16,15 @@
 # users commonly want.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+require 'vcr'
+
+VCR.configure do |c|
+  c.cassette_library_dir = 'spec/cassettes'
+  c.hook_into :webmock
+  c.configure_rspec_metadata!
+  c.allow_http_connections_when_no_cassette = true
+end
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
@@ -29,6 +38,28 @@ RSpec.configure do |config|
     # ...rather than:
     #     # => "be bigger than 2"
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
+
+    config.before :each do
+      OmniAuth.config.mock_auth[:github] = nil
+      # first, set OmniAuth to run in test mode
+      OmniAuth.config.test_mode = true
+      # then, provide a set of fake oauth data that
+      # omniauth will use when a user tries to authenticate:
+      OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new({
+        provider: "github",
+        uid: "2289374",
+        extra: {
+          raw_info: {
+            name: "Chad Ellison",
+            avatar_url: "https://avatars.githubusercontent.com/u/13648884?v=3",
+            login: "chadellison"
+          }
+        },
+        credentials: {
+          token: ENV["CONSUMER_API_SECRET"]
+        }
+      })
+    end
   end
 
   # rspec-mocks config goes here. You can use an alternate test double

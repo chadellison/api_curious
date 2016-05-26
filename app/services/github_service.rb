@@ -12,35 +12,33 @@ class GithubService
     following_hash.detect { |user| user[:login] == user_name}
   end
 
+  def organizations
+    @connection = Faraday.new(url: "https://api.github.com/user/orgs")
+  end
+
   def get_events
     connection.get "#{@query_user[:login]}/events"
   end
 
   def followed_user_summary(followed_user_hash)
     @query_user = followed_user_hash
-    ["Commits: "] + recent_pushes + ["Pull Requests: "] + recent_pull_requests + ["Issues: "] + recent_issues
+    {"Commits" => recent_pushes, "Pull Requests" => recent_pull_requests, "Issues" => recent_issues}
   end
 
   def recent_pushes
-    parse(get_events).select do |event|
-      event[:type] == "PushEvent"
-    end.map do |push|
+    find_event_type("PushEvent").map do |push|
       push[:payload][:commits].map { |commit| commit[:message]}
     end
   end
 
   def recent_pull_requests
-    parse(get_events).select do |event|
-      event[:type] == "PullRequestEvent"
-    end.map do |pull_request|
+    find_event_type("PullRequestEvent").map do |pull_request|
       pull_request[:payload][:pull_request][:body]
     end
   end
 
   def recent_issues
-    parse(get_events).select do |event|
-      event[:type] == "IssuesEvent" || event[:type] == "IssueCommentEvent"
-    end.map do |issue|
+    (find_event_type("IssuesEvent") + find_event_type("IssueCommentEvent")).map do |issue|
       [issue[:payload][:issue][:title], "Repo: #{issue[:repo][:name]}", issue[:payload][:action]]
     end
   end
@@ -69,7 +67,15 @@ class GithubService
     parse(get_starred)
   end
 
-  def parse(response)
-    JSON.parse(response.body, symbolize_names: true)
-  end
+  private
+
+    def parse(response)
+      JSON.parse(response.body, symbolize_names: true)
+    end
+
+    def find_event_type(event_type)
+      parse(get_events).select do |event|
+        event[:type] == event_type
+      end
+    end
 end

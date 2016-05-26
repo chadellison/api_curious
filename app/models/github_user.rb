@@ -6,6 +6,10 @@ class GithubUser < OpenStruct
     @service = GithubService.new(user)
   end
 
+  def organizations
+    service.organizations
+  end
+
   def find(user_name)
     service.find(user_name)
   end
@@ -15,6 +19,10 @@ class GithubUser < OpenStruct
   end
 
   def recent_pull_requests
+    # raw_pull_requests = service.recent_pull_requests
+    # raw_pull_requests.map do |raw_pr|
+    #   GithubPullRequest.new(raw_pr)
+    # end
     service.recent_pull_requests
   end
 
@@ -22,9 +30,14 @@ class GithubUser < OpenStruct
     service.recent_issues
   end
 
+  # user.orders # => [<Order>, <Order>]
+  # user.orders.first.amount
+
   def followers
     service.followers_hash
   end
+
+  # github_user.followers #=> [<GithubUser>, <GithubUser>]
 
   def following
     service.following_hash
