@@ -1,0 +1,68 @@
+.header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+body {
+    min-width: 1020px;
+    word-wrap: break-word;
+}
+
+body {
+    font: 13px/1.4 Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    color: #333;
+    background-color: #fff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.header-nav li {
+    display: inline;
+}
+
+
+.header-nav li {
+    float: left;
+}
+
+.header-nav a {
+    display: block;
+    padding: 8px;
+    background-color: #dddddd;
+}
+
+.avatar {
+  width: 350px;
+  float: left;
+}
+
+.avatar img {
+  width: 300px;
+  border-radius: 5px;
+}
+
+.pull-requests {
+  width: 300px;
+}
+
+.issues {
+  width: 300px;
+}
+
+.commits {
+  width: 300px;
+}
+
+.buttons {
+  width: 300px;
+}
