@@ -3,7 +3,12 @@
 <h4>Followers: <%= @github_user.followers.count %></h4>
 <h4> <%= link_to "Following: #{@github_user.following.count}", users_path %></h4>
 <h4>Starred: <%= @github_user.starred.count %></h4>
-<h4>Organizations: <%= @github_user.organizations %></h4>
+<h4>Organizations:</h4>
+<ul>
+<% @github_user.organizations.each do |organization| %>
+  <li><%= organization["login"] unless organization.nil? %></li>
+<% end %>
+</ul>
 <h3>Contribution Activity:</h3>
 <h4><%= @github_user.recent_pushes.count %> Commits</h4>
   <% @github_user.recent_pushes.each do |push| %>
