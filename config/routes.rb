@@ -7,5 +7,5 @@ Rails.application.routes.draw do
 
   get "/dashboard", to: "users#show", as: :dashboard
   get "/users", to: "github_users#index"
-  get "/users/:name", to: "github_users#show"
+  get "/users/:login", to: "github_users#show"
 end

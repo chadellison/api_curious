@@ -2,8 +2,8 @@ class GithubUser < OpenStruct
   attr_accessor :name, :service
 
   def initialize(user)
-    @user = user
-    @service = GithubService.new(user)
+    @name = user[:login]
+    @service = GithubService.new(@name)
   end
 
   def organizations
@@ -16,34 +16,27 @@ class GithubUser < OpenStruct
     end
   end
 
-  def find(user_name)
-    service.find(user_name)
-  end
-
   def recent_pushes
-    service.recent_pushes
+    service.recent_pushes.map do |push|
+      push[:payload][:commits].map { |commit| commit[:message]}
+    end
   end
 
   def recent_pull_requests
-    # raw_pull_requests = service.recent_pull_requests
-    # raw_pull_requests.map do |raw_pr|
-    #   GithubPullRequest.new(raw_pr)
-    # end
-    service.recent_pull_requests
+    service.recent_pull_requests.map do |pull_request|
+      pull_request[:payload][:pull_request][:body]
+    end
   end
 
   def issues
-    service.recent_issues
+    service.recent_issues.map do |issue|
+      [issue[:payload][:issue][:title], "Repo: #{issue[:repo][:name]}", issue[:payload][:action]]
+    end
   end
-
-  # user.orders # => [<Order>, <Order>]
-  # user.orders.first.amount
 
   def followers
     service.followers_hash
   end
-
-  # github_user.followers #=> [<GithubUser>, <GithubUser>]
 
   def following
     service.following_hash
@@ -51,9 +44,5 @@ class GithubUser < OpenStruct
 
   def starred
     service.starred_hash
-  end
-
-  def followed_user_summary(followed_user)
-    service.followed_user_summary(followed_user)
   end
 end
