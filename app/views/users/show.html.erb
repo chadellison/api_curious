@@ -1,4 +1,10 @@
 <h2>Welcome, <%= current_user.name %></h2>
+<h3>Repositories:</h3>
+<% @github_user.repos.each do |repo| %>
+<ul>
+  <li><%= repo %></li>
+</ul>
+<% end %>
 <%= image_tag current_user.avatar_url %>
 <h4>Followers: <%= @github_user.followers.count %></h4>
 <h4> <%= link_to "Following: #{@github_user.following.count}", users_path %></h4>

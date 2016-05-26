@@ -38,7 +38,6 @@ RSpec.configure do |config|
     # ...rather than:
     #     # => "be bigger than 2"
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
-
     config.before :each do
       OmniAuth.config.mock_auth[:github] = nil
       # first, set OmniAuth to run in test mode
@@ -47,7 +46,7 @@ RSpec.configure do |config|
       # omniauth will use when a user tries to authenticate:
       OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new({
         provider: "github",
-        uid: "2289374",
+        uid: "1234",
         extra: {
           raw_info: {
             name: "Chad Ellison",
@@ -56,7 +55,7 @@ RSpec.configure do |config|
           }
         },
         credentials: {
-          token: ENV["CONSUMER_API_SECRET"]
+          token: ENV["oauth_token"]
         }
       })
     end
