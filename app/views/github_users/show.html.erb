@@ -7,7 +7,7 @@
   </ul>
   <% end %>
   <h4>Followers: <%= @github_user.followers.count %></h4>
-  <h4>Following: #{@github_user.following.count}"</h4>
+  <h4>Following: <%= "#{@github_user.following.count}" %></h4>
   <h4>Starred: <%= @github_user.starred.count %></h4>
   <h4>Organizations:</h4>
   <ul>
