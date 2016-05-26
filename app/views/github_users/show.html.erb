@@ -1,4 +1,5 @@
 <h2><%= @github_user.name %></h2>
+<div class="avatar"><%= image_tag @github_user.avatar_url %></div>
 <h4>Repositories</h4>
 <ul>
   <% @github_user.repos.each do |repo| %>
