@@ -10,8 +10,11 @@
     <li><%= organization["login"] unless organization.nil? %></li>
     <% end %>
   </ul>
+  <div class="activity">
+
+
   <h3>Contribution Activity:</h3>
-  <div class="commits">
+  <div id="commits">
     <h4><%= @github_user.recent_pushes.count %> Commits</h4>
     <% @github_user.recent_pushes.each do |push| %>
     <ul>
@@ -22,7 +25,7 @@
     </ul>
   </div>
 </div>
-<div class="repos">
+<div id="repos">
   <h3>Repositories:</h3>
   <% @github_user.repos.each do |repo| %>
   <ul>
@@ -31,7 +34,7 @@
   <% end %>
 </div>
 
-<div class="pull-requests">
+<div id="pull-requests">
   <h4><%= @github_user.recent_pull_requests.count %> Pull Requests</h4>
   <% @github_user.recent_pull_requests.each do |pull_request| %>
   <ul>
@@ -40,7 +43,7 @@
   <% end %>
 </div>
 
-<div class="issues">
+<div id="issues">
   <h4><%= @github_user.issues.count %> Issues</h4>
   <% @github_user.issues.each do |issue| %>
   <ul>
@@ -49,4 +52,5 @@
     <% end %>
   </ul>
   <% end %>
+</div>
 </div>

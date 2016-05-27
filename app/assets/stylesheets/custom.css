@@ -52,17 +52,18 @@ ul {
 }
 
 .pull-requests {
-  width: 300px;
 }
 
 .issues {
-  width: 300px;
 }
 
 .commits {
-  width: 300px;
 }
 
 .buttons {
   width: 300px;
+}
+
+.hidden {
+  display: none;
 }

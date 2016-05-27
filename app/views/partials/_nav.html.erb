@@ -7,13 +7,13 @@
 
       <ul class="header-nav left" role="navigation">
         <li class="header-nav-item">
-          <a href="#" class="">Pull requests</a>
+          <a href="#" class="pull-request">Pull requests</a>
         </li>
         <li class="header-nav-item">
-          <a href="#" class="js-selected-navigation-item header-nav-link">Issues</a>
+          <a href="#" class="js-selected-navigation-item header-nav-link issues">Issues</a>
         </li>
           <li class="header-nav-item">
-            <a class="header-nav-link" href="#">Repositories</a>
+            <a class="header-nav-link repos" href="#">Repositories</a>
           </li>
           <% if current_user %>
           <li><%= link_to "Logout", logout_path, method: :delete, class: "header-nav" %></li>
